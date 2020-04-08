@@ -1,8 +1,8 @@
 Java Edition Player Username: <input id="name" type="test">(Case Sensitive)<br>
-<button id="go">Fetch</button>
-<img id="confirm">
+<button id="go">Fetch</button><br>
+<img id="confirm" style="image-rendering: pixelated; width: 256px">
 <br>
-<button style="display:none" id="download"></button>
+<a style="display:none" id="download" download>Download</a>
 <script>
 function onStartedDownload(id) {
   console.log("Started downloading: " + id);
@@ -12,19 +12,9 @@ function onFailed(error) {
   console.log("Download failed: " + error);
 }
 document.getElementById("go").addEventListener("click", function(){
-document.getElementById("confirm").src = "https://minecraft.tools/en/skins/getskin.php?" + document.getElementById("name").value;
+document.getElementById("confirm").src = "https://minecraft.tools/en/skins/getskin.php?name=" + document.getElementById("name").value;
 document.getElementById("download").style.display = "inline";
-});
-document.getElementById("download").addEventListener("click", function(){
-
-var downloadUrl = "https://minecraft.tools/en/skins/getskin.php?" + document.getElementById("name").value;
-
-var downloading = browser.downloads.download({
-  url : downloadUrl,
-  filename : document.getElementById("name").value + '\'s_skin.png',
-  conflictAction : 'uniquify'
-});
-
-downloading.then(onStartedDownload, onFailed);
+  document.getElementById("download").setAttribute("download", document.getElementById("name").value + "\'s_skin.png")
+  document.getElementById("download").setAttribute.src = "https://minecraft.tools/en/skins/getskin.php?name=" + document.getElementById("name").value
 });
 </script>
