@@ -1,0 +1,30 @@
+Java Edition Player Username: <input id="name" type="test">(Case Sensitive)<br>
+<button id="go">Fetch</button>
+<img id="confirm">
+<br>
+<button style="display:none" id="download"></button>
+<script>
+function onStartedDownload(id) {
+  console.log("Started downloading: " + id);
+}
+
+function onFailed(error) {
+  console.log("Download failed: " + error);
+}
+document.getElementById("go").addEventListener("click", function(){
+document.getElementById("confirm").src = "https://minecraft.tools/en/skins/getskin.php?" + document.getElementById("name").value;
+document.getElementById("download").style.display = "inline";
+});
+document.getElementById("download").addEventListener("click", function(){
+
+var downloadUrl = "https://minecraft.tools/en/skins/getskin.php?" + document.getElementById("name").value;
+
+var downloading = browser.downloads.download({
+  url : downloadUrl,
+  filename : document.getElementById("name").value + '\'s_skin.png',
+  conflictAction : 'uniquify'
+});
+
+downloading.then(onStartedDownload, onFailed);
+});
+</script>
